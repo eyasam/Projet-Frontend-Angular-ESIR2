@@ -1,0 +1,15 @@
+<div class="dashboard">
+    <h2>Bienvenue sur le Tableau de Bord</h2>
+    <p>Choisissez une action :</p>
+  
+    <div class="options">
+      <button (click)="goTo('/users')">Lister les utilisateurs</button>
+      <button (click)="goTo('/associations')">Lister les associations</button>
+      <button (click)="goTo('/users/add')">Ajouter un utilisateur</button>
+      <button (click)="goTo('/associations/add')">Ajouter une association</button>
+      <button (click)="goTo('/users/delete')">Supprimer un utilisateur</button>
+      <button (click)="goTo('/associations/delete')">Supprimer une association</button>
+      <button (click)="goTo('/associations/edit')">Modifier une association</button>
+    </div>
+  </div>
+  

@@ -1,0 +1,116 @@
+import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment';
+import { Observable, lastValueFrom } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+
+//const base_url: string = 'http://localhost:3000';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class ApiHelperService {
+    private readonly base_url: string = environment.base_url;
+  constructor(private http: HttpClient) { }
+
+  public get({
+    endpoint,
+    queryParams = {},
+  }: {
+    endpoint: string;
+    queryParams?: any;
+  }): Promise<any> {environment
+    return this.request({ endpoint, method: 'GET', queryParams });
+  }
+
+  public post({
+    endpoint,
+    data = {},
+    queryParams = {},
+  }: {
+    endpoint: string;
+    data?: any;
+    queryParams?: any;
+  }): Promise<any> {
+    return this.request({ endpoint, method: 'POST', data, queryParams });
+  }
+
+  public put({
+    endpoint,
+    data = {},
+    queryParams = {},
+    headers = {},
+  }: {
+    endpoint: string;
+    data?: any;
+    queryParams?: any;
+    headers?: any;
+  }): Promise<any> {
+    return this.request({ endpoint, method: 'PUT', data, queryParams, headers });
+  }
+
+  public delete({
+    endpoint,
+    data = {},
+    queryParams = {},
+  }: {
+    endpoint: string;
+    data?: any;
+    queryParams?: any;
+  }): Promise<any> {
+    return this.request({ endpoint, method: 'DELETE', data, queryParams });
+  }
+
+  public async request({
+    endpoint,
+    method = 'GET',
+    data = {},
+    queryParams = {},
+    headers = {},
+  }: {
+    endpoint: string;
+    method?: string;
+    data?: object;
+    queryParams?: any;
+    headers?: any;
+  }): Promise<any> {
+    const methodWanted = method.toLowerCase();
+    const url = `${this.base_url}${endpoint}`;
+
+    console.log('Envoi de la requête', methodWanted, url, data, headers);
+
+    //const url = base_url + endpoint;
+
+    const requestOptions = {
+      params: queryParams,
+      headers: headers,
+    };
+
+    console.log(method, url, JSON.stringify(requestOptions), JSON.stringify(data));
+
+    let req: Observable<any>;
+    if (methodWanted === 'get') {
+      req = this.http.get(url, { ...requestOptions, observe: 'response' });
+    } else if (methodWanted === 'post') {
+      req = this.http.post(url, data, {
+        ...requestOptions,
+        observe: 'response',
+      });
+    } else if (methodWanted === 'put') {
+      req = this.http.put(url, data, {
+        ...requestOptions,
+        observe: 'response',
+      });
+    } else {
+      req = this.http.delete(url, { ...requestOptions, observe: 'response' });
+    }
+
+    if (!req) {
+      throw new Error(`error calling ${url} with method ${methodWanted}`);
+    }
+
+    return await lastValueFrom(req).then((res) => {
+      return res.body;
+    });
+  }
+}
+

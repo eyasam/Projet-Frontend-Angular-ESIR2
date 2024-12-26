@@ -1,0 +1,19 @@
+<nav>
+    <div class="logo">
+      MyApp
+    </div>
+    <ul class="menu">
+      <li><a [routerLink]="['/dashboard']" routerLinkActive="active">Dashboard</a></li>
+      <li><a [routerLink]="['/users']" routerLinkActive="active">Users</a></li>
+      <li><a [routerLink]="['/associations']" routerLinkActive="active">Associations</a></li>
+      <li><a [routerLink]="['/profile']" routerLinkActive="active">Profile</a></li>
+      
+    </ul>
+    <div>
+        <button *ngIf="isLogged" (click)="logout()">Logout</button>
+      </div>
+  </nav>
+  
+
+
+  
