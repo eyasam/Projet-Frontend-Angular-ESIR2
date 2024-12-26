@@ -38,14 +38,14 @@ export class ApiHelperService {
     endpoint,
     data = {},
     queryParams = {},
-    headers = {},
+    //headers = {},
   }: {
     endpoint: string;
     data?: any;
     queryParams?: any;
     headers?: any;
   }): Promise<any> {
-    return this.request({ endpoint, method: 'PUT', data, queryParams, headers });
+    return this.request({ endpoint, method: 'PUT', data, queryParams });
   }
 
   public delete({
@@ -65,7 +65,7 @@ export class ApiHelperService {
     method = 'GET',
     data = {},
     queryParams = {},
-    headers = {},
+    //headers = {},
   }: {
     endpoint: string;
     method?: string;
@@ -76,13 +76,13 @@ export class ApiHelperService {
     const methodWanted = method.toLowerCase();
     const url = `${this.base_url}${endpoint}`;
 
-    console.log('Envoi de la requête', methodWanted, url, data, headers);
+    console.log('Envoi de la requête', methodWanted, url, data);
 
     //const url = base_url + endpoint;
 
     const requestOptions = {
       params: queryParams,
-      headers: headers,
+      //headers: headers,
     };
 
     console.log(method, url, JSON.stringify(requestOptions), JSON.stringify(data));

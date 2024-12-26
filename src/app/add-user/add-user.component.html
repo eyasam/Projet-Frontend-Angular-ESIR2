@@ -1,0 +1,94 @@
+<!-- <div class="form-container">
+    <h3>Ajouter un utilisateur</h3>
+    <form (ngSubmit)="addUser()">
+      <div class="form-group">
+        <label for="lastname">Nom :</label>
+        <input id="lastname" [(ngModel)]="user.lastname" name="lastname" required>
+      </div>
+      <div class="form-group">
+        <label for="firstname">Prénom :</label>
+        <input id="firstname" [(ngModel)]="user.firstname" name="firstname" required>
+      </div>
+      <div class="form-group">
+        <label for="age">Âge :</label>
+        <input id="age" type="number" [(ngModel)]="user.age" name="age" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Mot de passe :</label>
+        <input id="password" type="password" [(ngModel)]="user.password" name="password" required>
+      </div>
+      <button type="submit" mat-button>Ajouter</button>
+    </form>
+  </div>
+   -->
+
+   <div class="add-user-container">
+    <h2 class="add-user-title">Ajouter un nouvel utilisateur</h2>
+    <form [formGroup]="userForm" (ngSubmit)="addUser()">
+      <div class="form-field">
+        <label for="firstname">Prénom</label>
+        <input
+          id="firstname"
+          type="text"
+          formControlName="firstname"
+          placeholder="Entrez le prénom"
+          class="form-input"
+          [ngClass]="{'invalid': userForm.controls['firstname'].invalid && userForm.controls['firstname'].touched}"
+        />
+        <div *ngIf="userForm.controls['firstname'].invalid && userForm.controls['firstname'].touched" class="error-message">
+          Le prénom est requis.
+        </div>
+      </div>
+  
+      <div class="form-field">
+        <label for="lastname">Nom</label>
+        <input
+          id="lastname"
+          type="text"
+          formControlName="lastname"
+          placeholder="Entrez le nom"
+          class="form-input"
+          [ngClass]="{'invalid': userForm.controls['lastname'].invalid && userForm.controls['lastname'].touched}"
+        />
+        <div *ngIf="userForm.controls['lastname'].invalid && userForm.controls['lastname'].touched" class="error-message">
+          Le nom est requis.
+        </div>
+      </div>
+  
+      <div class="form-field">
+        <label for="age">Âge</label>
+        <input
+          id="age"
+          type="number"
+          formControlName="age"
+          placeholder="Entrez l'âge"
+          class="form-input"
+          [ngClass]="{'invalid': userForm.controls['age'].invalid && userForm.controls['age'].touched}"
+        />
+        <div *ngIf="userForm.controls['age'].invalid && userForm.controls['age'].touched" class="error-message">
+          L'âge est requis et doit être supérieur ou égal à 18.
+        </div>
+      </div>
+  
+      <div class="form-field">
+        <label for="password">Mot de passe</label>
+        <input
+          id="password"
+          type="password"
+          formControlName="password"
+          placeholder="Entrez un mot de passe"
+          class="form-input"
+          [ngClass]="{'invalid': userForm.controls['password'].invalid && userForm.controls['password'].touched}"
+        />
+        <div *ngIf="userForm.controls['password'].invalid && userForm.controls['password'].touched" class="error-message">
+          Le mot de passe est requis (au moins 6 caractères).
+        </div>
+      </div>
+  
+      <div class="form-actions">
+        <button mat-button type="submit" [disabled]="userForm.invalid">Ajouter</button>
+        <button mat-button mat-dialog-close>Annuler</button>
+      </div>
+    </form>
+  </div>
+  

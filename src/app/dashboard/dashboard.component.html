@@ -7,9 +7,51 @@
       <button (click)="goTo('/associations')">Lister les associations</button>
       <button (click)="goTo('/users/add')">Ajouter un utilisateur</button>
       <button (click)="goTo('/associations/add')">Ajouter une association</button>
-      <button (click)="goTo('/users/delete')">Supprimer un utilisateur</button>
+      <!-- <button (click)="goTo('/users/delete')">Supprimer un utilisateur</button> -->
       <button (click)="goTo('/associations/delete')">Supprimer une association</button>
       <button (click)="goTo('/associations/edit')">Modifier une association</button>
     </div>
+
+     <!-- Champ de recherche -->
+  <div class="search-container">
+    <input
+      type="text"
+      [(ngModel)]="searchTerm"
+      (input)="onSearch()"
+      placeholder="Rechercher un utilisateur par ID ou Nom"
+      class="search-input"
+    />
+  </div>
+
+   <!-- Affichage des résultats -->
+   <div *ngIf="searchResults.length > 0">
+    <!-- Si un seul utilisateur trouvé -->
+    <div *ngIf="searchResults.length === 1" class="search-results">
+      <h3>Utilisateur trouvé :</h3>
+      <p><strong>ID:</strong> {{ searchResults[0].id }}</p>
+      <p><strong>Nom:</strong> {{ searchResults[0].lastname }}</p>
+      <p><strong>Prénom:</strong> {{ searchResults[0].firstname }}</p>
+      <p><strong>Âge:</strong> {{ searchResults[0].age }}</p>
+      <button (click)="viewUserDetails(searchResults[0].id)">Voir les détails</button>
+    </div>
+
+    <!-- Si plusieurs utilisateurs trouvés -->
+    <div *ngIf="searchResults.length > 1">
+      <h3>Plusieurs utilisateurs trouvés :</h3>
+      <ul>
+        <li *ngFor="let user of searchResults" (click)="viewUserDetails(user.id)">
+          <p><strong>ID:</strong> {{ user.id }}</p>
+          <p><strong>Nom:</strong> {{ user.lastname }}</p>
+          <p><strong>Prénom:</strong> {{ user.firstname }}</p>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Affichage lorsqu'aucun utilisateur n'est trouvé -->
+  <div *ngIf="searchResults.length === 0 && searchTerm.trim() !== ''" class="no-results">
+    <p>Aucun utilisateur trouvé avec cet ID ou nom.</p>
+  </div>
+
   </div>
   

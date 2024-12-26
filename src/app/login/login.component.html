@@ -23,7 +23,7 @@
     <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
   </div> -->
 
-  <div class="login-container">
+  <!-- <div class="login-container">
     <h2>Sign In</h2>
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <div>
@@ -45,6 +45,54 @@
       <button type="submit" [disabled]="loginForm.invalid">Se connecter</button>
     </form>
   
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+  </div> -->
+  
+
+  <div class="login-container">
+    <h2>Connexion</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <!-- Champ du nom d'utilisateur -->
+      <div class="form-field">
+        <label for="username">Nom d'utilisateur</label>
+        <input
+          id="username"
+          formControlName="username"
+          type="text"
+          placeholder="Entrez votre nom d'utilisateur"
+          class="form-input"
+          [ngClass]="{'invalid': loginForm.controls['username'].invalid && loginForm.controls['username'].touched}"
+        />
+        <div *ngIf="loginForm.controls['username'].invalid && loginForm.controls['username'].touched" class="error-message">
+          Le nom d'utilisateur est requis.
+        </div>
+      </div>
+  
+      <!-- Champ du mot de passe -->
+      <div class="form-field">
+        <label for="password">Mot de passe</label>
+        <input
+          id="password"
+          formControlName="password"
+          type="password"
+          placeholder="Entrez votre mot de passe"
+          class="form-input"
+          [ngClass]="{'invalid': loginForm.controls['password'].invalid && loginForm.controls['password'].touched}"
+        />
+        <div *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched" class="error-message">
+          Le mot de passe est requis.
+        </div>
+      </div>
+  
+      <!-- Bouton de soumission -->
+      <div class="form-actions">
+        <button type="submit" [disabled]="loginForm.invalid">Se connecter</button>
+      </div>
+    </form>
+  
+    <!-- Message d'erreur général -->
     <div *ngIf="errorMessage" class="error-message">
       {{ errorMessage }}
     </div>
