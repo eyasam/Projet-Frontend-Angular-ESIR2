@@ -1,0 +1,14 @@
+<h2>Modifier les rôles des membres</h2>
+<form [formGroup]="roleForm" (ngSubmit)="onSubmit()">
+  <div *ngFor="let member of data.association.members">
+    <div>
+      <label>{{ member.firstname }} {{ member.lastname }}</label>
+      <select formControlName="role_{{ member.id }}">
+        <option value="Membre">Membre</option>
+        <option value="Président">Président</option>
+        <option value="Secrétaire">Secrétaire</option>
+      </select>
+    </div>
+  </div>
+  <button type="submit" [disabled]="roleForm.invalid">Enregistrer</button>
+</form>

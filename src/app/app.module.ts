@@ -19,6 +19,11 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
 import { AddUserComponent } from './add-user/add-user.component';
+import { AssociationsListComponent } from './associations-list/associations-list.component';
+import { AssociationDetailsComponent } from './association-details/association-details.component';
+import { MinuteDetailsDialogComponent } from './minute-details-dialog/minute-details-dialog.component';
+import { AssociationEditComponent } from './association-edit/association-edit.component';
+import { EditRoleDialogComponent } from './edit-role-dialog/edit-role-dialog.component';
 
 
 @NgModule({
@@ -32,6 +37,11 @@ import { AddUserComponent } from './add-user/add-user.component';
     UserDetailsComponent,
     EditUserComponent,
     AddUserComponent,
+    AssociationsListComponent,
+    AssociationDetailsComponent,
+    MinuteDetailsDialogComponent,
+    AssociationEditComponent,
+    EditRoleDialogComponent,
     
   ],
   imports: [

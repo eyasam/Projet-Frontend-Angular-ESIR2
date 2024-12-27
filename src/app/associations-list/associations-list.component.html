@@ -1,0 +1,83 @@
+<!-- <div class="associations-container">
+    <h2>Liste des Associations</h2>
+    
+    <div *ngIf="errorMessages" class="error-message">
+      {{ errorMessages }}
+    </div>
+    
+    <table *ngIf="associations.length > 0; else noData">
+      <thead>
+        <tr>
+          <th>Nom de l'Association</th>
+          <th>Membres</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let association of associations">
+          <td>{{ association.name }}</td>
+          <td>
+            <ul>
+              <li *ngFor="let member of association.members">
+                {{ member.firstname }} {{ member.lastname }} ({{ member.role }})
+              </li>
+            </ul>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <ng-template #noData>
+      <p>Aucune association disponible pour le moment.</p>
+    </ng-template>
+  </div>
+   -->
+   <div class="associations-container">
+    <h2>Liste des Associations</h2>
+    
+    <div *ngIf="errorMessages" class="error-message">
+      {{ errorMessages }}
+    </div>
+    
+    <table *ngIf="associations.length > 0; else noData">
+      <thead>
+        <tr>
+          <th>Nom de l'Association</th>
+          <th>Membre</th>
+          <th>Rôle</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let association of associations">
+          <td>
+            <a (click)="ViewAssociationDetails(association)" class="clickable" role="button">
+              {{ association.name }}
+            </a>
+          </td>
+          <td>
+            <ul>
+              <li *ngFor="let member of association.members">
+                {{ member.firstname }} {{ member.lastname }}
+              </li>
+            </ul>
+          </td>
+          <td>
+            <ul>
+              <li *ngFor="let member of association.members">
+                {{ member.role }}
+              </li>
+            </ul>
+          </td>
+          <td> <!-- Colonne pour les boutons -->
+            <button mat-raised-button color="primary" (click)="modifyAssociation(association)">Modifier</button>
+            <button mat-raised-button color="warn" (click)="deleteAssociation(association)">Supprimer</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <ng-template #noData>
+      <p>Aucune association disponible pour le moment.</p>
+    </ng-template>
+  </div>
+  
