@@ -4,6 +4,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { AssociationDetailsComponent } from '../association-details/association-details.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { error } from 'console';
+import { AssociationEditComponent } from '../association-edit/association-edit.component';
+import { AddRoleFormComponent } from '../add-role-form/add-role-form.component';
 
 @Component({
   selector: 'app-associations-list',
@@ -93,18 +95,99 @@ export class AssociationsListComponent implements OnInit {
   //   });
   // }
 
-  modifyRoleAssociation(associationId: number, modifyRoleAssociation: any[]): void {
-    modifyRoleAssociation.forEach(role => { 
-    this.http.put(`http://localhost:3000/roles/${role.id}/${associationId}`,  {name: role.role}).subscribe(()=> {
-      this.snackBar.open('Role modifié avec succès', 'Fermer', {duration: 3000});
-      this.fetchAssociations();
-     },
-     error => {
-      this.snackBar.open('Erreur lors de la modification du role', 'Fermer', {duration: 3000});
-      console.error('Error updating role', error);
-     });
+//   modifyRoleAssociation(associationId: number, modifyRoleAssociation: any[]): void {
+//     modifyRoleAssociation.forEach(role => { 
+//     this.http.put(`http://localhost:3000/roles/${role.id}/${associationId}`,  {name: role.role}).subscribe(()=> {
+//       this.snackBar.open('Role modifié avec succès', 'Fermer', {duration: 3000});
+//       this.fetchAssociations();
+//      },
+//      error => {
+//       this.snackBar.open('Erreur lors de la modification du role', 'Fermer', {duration: 3000});
+//       console.error('Error updating role', error);
+//      });
+//   });
+// }
+
+// modifyRoleAssociation(associationId: number, modifyRoleAssociation: any[]): void {
+//   // Exemple de payload attendu : [{ name: "Member", idUser: 12, idAssociation: 1 }, ...]
+//   this.http.post(`http://localhost:3000/roles`, modifyRoleAssociation).subscribe({
+//     next: () => {
+//       this.snackBar.open('Rôle modifié avec succès', 'Fermer', { duration: 3000 });
+//       this.fetchAssociations();
+//     },
+//     error: (error) => {
+//       this.snackBar.open('Erreur lors de la modification du rôle', 'Fermer', { duration: 3000 });
+//       console.error('Error updating role:', error); // Debug
+//     },
+//   });
+// }
+
+modifyRoleAssociation(associationId: number, modifyRoleAssociation: any[]): void {
+  // Pour chaque rôle à modifier, on construit l'URL dynamique
+  modifyRoleAssociation.forEach(role => {
+    const url = `http://localhost:3000/roles/${role.idUser}/${associationId}`;
+
+    const updatedRole = {
+      idUser: role.idUser,  // ID du membre
+      idAssociation: associationId,  // ID de l'association
+      name: role.role  // Nom du rôle à mettre à jour
+    };
+
+    console.log('Updating role:', updatedRole);  // Debug
+
+    // Appel API PUT pour chaque rôle
+    this.http.put(url, updatedRole).subscribe({
+      next: () => {
+        this.snackBar.open('Rôle modifié avec succès', 'Fermer', { duration: 3000 });
+        this.fetchAssociations();  // Rafraîchir les associations après la modification
+      },
+      error: (error) => {
+        if (error.status === 409) {
+          this.snackBar.open('Conflit: Ce rôle est déjà attribué à ce membre dans cette association.', 'Fermer', { duration: 3000 });
+        } else {
+          this.snackBar.open('Erreur lors de la modification du rôle', 'Fermer', { duration: 3000 });
+          console.error('Error updating role', error);
+        }
+      }
+    });
   });
 }
+
+
+// modifyRoleAssociation(associationId: number, modifyRoleAssociation: any[]): void {
+//   const rolesToUpdate = modifyRoleAssociation.map(role => ({
+//     idUser: role.id,
+//     idAssociation: associationId,
+//     name: role.role,
+//   }));
+
+//   console.log('rolesToUpdate :', rolesToUpdate);
+//   console.log('associationId :', associationId);
+//   this.http.post(`http://localhost:3000/roles`, rolesToUpdate).subscribe({
+//     next: () => {
+//       this.snackBar.open('Role modifié avec succès', 'Fermer', {duration: 3000});
+//       this.fetchAssociations();
+//     },
+//     error: (error) => {
+//       this.snackBar.open('Erreur lors de la modification du role', 'Fermer', {duration: 3000});
+//       console.error('Error updating role', error);
+//     }
+//   });
+
+//   }
+
+  editAssociation(association: any): void {
+    const dialRef = this.dialog.open(AssociationEditComponent, {
+      width: '600px',
+      data: {association}
+    });
+
+    dialRef.afterClosed().subscribe((updatedRoles: any) => {
+      if (updatedRoles) {
+        this.modifyRoleAssociation(association.id, updatedRoles);
+      }
+    });
+  }
 
   deleteAssociation(association: any): void {
     const confirmDelete = confirm(`Voulez-vous vraiment supprimer cette association ${association.name} ?`);
@@ -121,5 +204,72 @@ export class AssociationsListComponent implements OnInit {
       });
     }
   }
+
+
+  //Ajouter un role 
+  // addRole(associationId: number, memberId: number): void {
+  //   const newRole = {
+  //     name: 'Membre',
+  //     idUser: memberId,
+  //     idAssociation: associationId,
+  //   };
+
+  //   this.http.post(`http://localhost:3000/roles`, newRole).subscribe({
+  //     next: () => {
+  //       this.snackBar.open('Role ajouté avec succès', 'Fermer', { duration: 3000 });
+  //       this.fetchAssociations();
+  //     },
+  //     error: (error) => {
+  //       this.snackBar.open('Erreur lors de l\'ajout du role', 'Fermer', { duration: 3000 });
+  //       console.error('Error adding role', error);
+  //     },
+  //   });
+  // }
+
+  addRole(roleData: any): void {
+    // const newRole = {
+    //   name: role,
+    //   idUser: memberId,
+    //   idAssociation: associationId,
+    // };
+  
+    // this.http.post('http://localhost:3000/roles', newRole).subscribe({
+    //   next: () => {
+    //     this.snackBar.open('Rôle ajouté avec succès', 'Fermer', { duration: 3000 });
+    //     this.fetchAssociations();
+    //   },
+    //   error: (error) => {
+    //     this.snackBar.open('Erreur lors de l\'ajout du rôle', 'Fermer', { duration: 3000 });
+    //     console.error('Error adding role', error);
+    //   },
+    // });
+
+    this.http.post('http://localhost:3000/roles', roleData).subscribe({
+      next: () => {
+        this.snackBar.open('Rôle ajouté avec succès', 'Fermer', { duration: 3000 });
+        this.fetchAssociations();  // Rafraîchir les associations après l'ajout du rôle
+      },
+      error: (error) => {
+        this.snackBar.open('Erreur lors de l\'ajout du rôle', 'Fermer', { duration: 3000 });
+        console.error('Error adding role', error);
+      }
+    });
+  }
+
+  openAddRole(association: any): void {
+    const dialogRef = this.dialog.open(AddRoleFormComponent, {
+      width: '600px',
+      data: { association},
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.addRole(result);
+      }
+    });
+  }
+
+  
+  
   
 }

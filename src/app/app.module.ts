@@ -24,6 +24,10 @@ import { AssociationDetailsComponent } from './association-details/association-d
 import { MinuteDetailsDialogComponent } from './minute-details-dialog/minute-details-dialog.component';
 import { AssociationEditComponent } from './association-edit/association-edit.component';
 import { EditRoleDialogComponent } from './edit-role-dialog/edit-role-dialog.component';
+import { AddRoleFormComponent } from './add-role-form/add-role-form.component';
+import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
+import { MatOptionModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
 
 
 @NgModule({
@@ -42,6 +46,7 @@ import { EditRoleDialogComponent } from './edit-role-dialog/edit-role-dialog.com
     MinuteDetailsDialogComponent,
     AssociationEditComponent,
     EditRoleDialogComponent,
+    AddRoleFormComponent,
     
   ],
   imports: [
@@ -53,6 +58,9 @@ import { EditRoleDialogComponent } from './edit-role-dialog/edit-role-dialog.com
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatOptionModule,
     RouterModule.forRoot([]),
   ],
   providers: [

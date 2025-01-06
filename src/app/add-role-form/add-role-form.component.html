@@ -1,0 +1,71 @@
+<!-- <div mat-dialog-content>
+    <form [formGroup]="roleForm" (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="fill">
+        <mat-label>Membre</mat-label>
+        <mat-select formControlName="memberId" required>
+          <mat-option *ngFor="let member of members" [value]="member.id">
+            {{ member.firstname }} {{ member.lastname }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="roleForm.get('memberId')?.hasError('required')">
+          Ce champ est requis.
+        </mat-error>
+      </mat-form-field>
+  
+      <mat-form-field appearance="fill">
+        <mat-label>Rôle</mat-label>
+        <mat-select formControlName="role" required>
+          <mat-option *ngFor="let role of availableRoles" [value]="role">
+            {{ role }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="roleForm.get('role')?.hasError('required')">
+          Ce champ est requis.
+        </mat-error>
+      </mat-form-field>
+  
+      <div mat-dialog-actions>
+        <button mat-button mat-dialog-close>Annuler</button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="roleForm.invalid">Ajouter Rôle</button>
+      </div>
+    </form>
+  </div>
+   -->
+
+   <div class="dialog-container">
+    <div class="dialog-title">
+      Ajouter un rôle
+    </div>
+    <div class="dialog-content">
+      <form [formGroup]="roleForm" (ngSubmit)="onSubmit()">
+        <div class="dialog-row">
+          <label for="memberId" class="dialog-label">Membre</label>
+          <mat-select formControlName="memberId" required class="dialog-input">
+            <mat-option *ngFor="let member of members" [value]="member.id">
+              {{ member.firstname }} {{ member.lastname }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="roleForm.get('memberId')?.hasError('required')">
+            Ce champ est requis.
+          </mat-error>
+        </div>
+  
+        <div class="dialog-row">
+          <label for="role" class="dialog-label">Rôle</label>
+          <mat-select formControlName="role" required class="dialog-input">
+            <mat-option *ngFor="let role of availableRoles" [value]="role">
+              {{ role }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="roleForm.get('role')?.hasError('required')">
+            Ce champ est requis.
+          </mat-error>
+        </div>
+  
+        <div class="dialog-actions">
+          <button mat-raised-button color="primary" type="submit" [disabled]="roleForm.invalid" class="dialog-button">Ajouter le rôle</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  

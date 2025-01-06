@@ -9,6 +9,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
 import { AddUserComponent } from './add-user/add-user.component';
 import { AssociationsListComponent } from './associations-list/associations-list.component';
+import { AssociationEditComponent } from './association-edit/association-edit.component';
 
 
 const routes: Routes = [
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'users/edit/:id', component: EditUserComponent, canActivate: [authGuard] },
   { path: 'users/add', component: AddUserComponent, canActivate: [authGuard] },
   { path: 'associations', component: AssociationsListComponent, canActivate: [authGuard] },
+  { path: 'associations/:id/edit', component: AssociationEditComponent, canActivate: [authGuard] },
   { path: '', redirectTo: '/login', pathMatch: 'full' }
 ];
 
