@@ -1,1 +1,19 @@
-<p>association-search-details works!</p>
+<div class="association-detail-container">
+    <h2 class="association-detail-title">Détails de l'Association</h2>
+    
+    <div class="detail-row">
+      <span class="detail-label">Nom :</span>
+      <span class="detail-value">{{ data?.name }}</span>
+    </div>
+  
+    <div class="association-detail-members">
+      <h3 class="association-detail-members-title">Membres</h3>
+      <ul class="association-detail-members-list" *ngIf="data?.members?.length > 0; else noMembers">
+        <li *ngFor="let member of data.members">
+          {{ member.firstname }} {{ member.lastname }} - {{ member.role }}
+        </li>
+      </ul>
+      <ng-template #noMembers>
+        <p>Aucun membre dans cette association.</p>
+      </ng-template>
+    </div>

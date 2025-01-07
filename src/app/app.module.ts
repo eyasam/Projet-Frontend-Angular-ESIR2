@@ -28,6 +28,7 @@ import { AddRoleFormComponent } from './add-role-form/add-role-form.component';
 import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import { AssociationSearchDetailsComponent } from './association-search-details/association-search-details.component';
 
 
 @NgModule({
@@ -47,6 +48,7 @@ import { MatSelectModule } from '@angular/material/select';
     AssociationEditComponent,
     EditRoleDialogComponent,
     AddRoleFormComponent,
+    AssociationSearchDetailsComponent,
     
   ],
   imports: [

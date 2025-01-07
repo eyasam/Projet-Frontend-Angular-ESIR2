@@ -1,57 +1,45 @@
 <div class="dashboard">
-    <h2>Bienvenue sur le Tableau de Bord</h2>
-    <p>Choisissez une action :</p>
-  
-    <div class="options">
-      <button (click)="goTo('/users')">Lister les utilisateurs</button>
-      <button (click)="goTo('/associations')">Lister les associations</button>
-      <button (click)="goTo('/users/add')">Ajouter un utilisateur</button>
-      <button (click)="goTo('/associations/add')">Ajouter une association</button>
-      <!-- <button (click)="goTo('/users/delete')">Supprimer un utilisateur</button> -->
-      <!-- <button (click)="goTo('/associations/delete')">Supprimer une association</button>
-      <button (click)="goTo('/associations/edit')">Modifier une association</button> -->
-    </div>
+  <h2>Bienvenue sur le Tableau de Bord</h2>
+  <p>Choisissez une action :</p>
 
-     <!-- Champ de recherche -->
-  <div class="search-container">
-    <input
-      type="text"
-      [(ngModel)]="searchTerm"
-      (input)="onSearch()"
-      placeholder="Rechercher un utilisateur par ID ou Nom"
-      class="search-input"
-    />
+  <!-- Actions principales -->
+  <div class="options">
+    <button (click)="goTo('/users')">Lister les utilisateurs</button>
+    <button (click)="goTo('/associations')">Lister les associations</button>
+    <button (click)="goTo('/users/add')">Ajouter un utilisateur</button>
+    <button (click)="goTo('/associations/add')">Ajouter une association</button>
   </div>
 
-   <!-- Affichage des résultats -->
-   <div *ngIf="searchResults.length > 0">
-    <!-- Si un seul utilisateur trouvé -->
-    <div *ngIf="searchResults.length === 1" class="search-results">
-      <h3>Utilisateur trouvé :</h3>
-      <p><strong>ID:</strong> {{ searchResults[0].id }}</p>
-      <p><strong>Nom:</strong> {{ searchResults[0].lastname }}</p>
-      <p><strong>Prénom:</strong> {{ searchResults[0].firstname }}</p>
-      <p><strong>Âge:</strong> {{ searchResults[0].age }}</p>
-      <button (click)="viewUserDetails(searchResults[0].id)">Voir les détails</button>
-    </div>
+  <div class="search-container">
+    <input type="text" [(ngModel)]="searchTerm" (input)="onSearch()" placeholder="Rechercher un utilisateur ou une association par ID ou nom" class="search-input" />
+  </div>
 
-    <!-- Si plusieurs utilisateurs trouvés -->
-    <div *ngIf="searchResults.length > 1">
-      <h3>Plusieurs utilisateurs trouvés :</h3>
+  <div *ngIf="searchResults.length > 0 || associationResults.length > 0" class="results-container">
+    <div *ngIf="searchResults.length > 0" class="search-results">
+      <h3>Utilisateurs trouvés :</h3>
       <ul>
         <li *ngFor="let user of searchResults" (click)="viewUserDetails(user.id)">
           <p><strong>ID:</strong> {{ user.id }}</p>
           <p><strong>Nom:</strong> {{ user.lastname }}</p>
           <p><strong>Prénom:</strong> {{ user.firstname }}</p>
+          <button (click)="viewUserDetails(user.id)">Voir les détails</button>
+        </li>
+      </ul>
+    </div>
+
+    <div *ngIf="associationResults.length > 0" class="search-results">
+      <h3>Associations trouvées :</h3>
+      <ul>
+        <li *ngFor="let association of associationResults" (click)="viewAssociationDetails(association.id)">
+          <p><strong>ID:</strong> {{ association.id }}</p>
+          <p><strong>Nom:</strong> {{ association.name }}</p>
+          <button (click)="viewAssociationDetails(association.id)">Voir les détails</button>
         </li>
       </ul>
     </div>
   </div>
 
-  <!-- Affichage lorsqu'aucun utilisateur n'est trouvé -->
-  <div *ngIf="searchResults.length === 0 && searchTerm.trim() !== ''" class="no-results">
-    <p>Aucun utilisateur trouvé avec cet ID ou nom.</p>
+  <div *ngIf="searchResults.length === 0 && associationResults.length === 0 && searchTerm.trim() !== ''" class="no-results">
+    <p>Aucun utilisateur ou association trouvé avec cet ID ou nom.</p>
   </div>
-
-  </div>
-  
+</div>

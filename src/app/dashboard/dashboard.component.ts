@@ -3,6 +3,9 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { UserDetailsComponent } from '../user-details/user-details.component';
 import { MatDialog } from '@angular/material/dialog';
+import { error } from 'console';
+import { AssociationDetailsComponent } from '../association-details/association-details.component';
+import { AssociationSearchDetailsComponent } from '../association-search-details/association-search-details.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,6 +17,7 @@ import { MatDialog } from '@angular/material/dialog';
 export class DashboardComponent {
   searchTerm: string = '';
   searchResults: any[] = [];
+  associationResults: any[] =[];
 
   constructor(private http: HttpClient,private router: Router,private dialog: MatDialog) { }
 
@@ -21,51 +25,17 @@ export class DashboardComponent {
     
   }
 
-  // search(): void {
-  //   this.http.get<any[]>(`http://localhost:3000/users`).subscribe(
-  //     (users) => {
-  //       this.searchResults = users;
-  //     },
-  //     (error) => {
-  //       console.error('Error while searching users', error);
-  // });
-  // }
-
-  // onSearch(): void {
-  //   if(this.searchTerm.trim() === ''){
-  //     this.search();
-  //   }else{
-  //     this.searchResults = this.searchResults.filter((user) => 
-  //   user.id.toString().includes(this.searchTerm) || user.lastname.toLowerCase().includes(this.searchTerm.toLowerCase())
-  //     );
-  //   }
-  // }
-
-  // onSearch(): void {
-  //   if(this.searchTerm.trim() === ''){
-  //     this.searchResults = [];
-  //   }else{
-  //     this.http.get<any[]>(`http://localhost:3000/users?search=${this.searchTerm}`).subscribe(
-  //       (users) => {
-  //         this.searchResults = users;
-  //       },
-  //       (error) => {
-  //         console.error('Error while searching users', error);
-  //     });
-  //   }
-  // }
-
   onSearch(): void {
     if (this.searchTerm.trim() === '') {
       this.searchResults = [];
+      this.associationResults = [];
     } else {
-      const searchId = parseInt(this.searchTerm, 10); // Convertir en nombre pour ID
+      
       this.http.get<any[]>(`http://localhost:3000/users`).subscribe(
         (users) => {
-          // Rechercher uniquement l'utilisateur correspondant à l'ID ou au nom
           this.searchResults = users.filter(
             (user) =>
-              user.id === searchId || 
+              user.id.toString().includes(this.searchTerm) ||
               user.lastname.toLowerCase().includes(this.searchTerm.toLowerCase())
           );
         },
@@ -73,8 +43,23 @@ export class DashboardComponent {
           console.error('Erreur lors de la recherche des utilisateurs', error);
         }
       );
+
+      
+      this.http.get<any[]>(`http://localhost:3000/associations`).subscribe(
+        (associations) => {
+          this.associationResults = associations.filter(
+            (association) =>
+              association.id.toString().includes(this.searchTerm) ||
+              association.name.toLowerCase().includes(this.searchTerm.toLowerCase())
+          );
+        },
+        (error) => {
+          console.error('Erreur lors de la recherche des associations', error);
+        }
+      );
     }
   }
+
   
 
   viewUserDetails(id: number): void {
@@ -95,6 +80,25 @@ export class DashboardComponent {
     );
   }
 
+  viewAssociationDetails(id: number): void {
+    // Affichage des détails de l'association
+    this.http.get(`http://localhost:3000/associations/${id}`).subscribe(
+      (association) => {
+        if(association){
+        console.log('Association details', association);
+        this.dialog.open(AssociationSearchDetailsComponent, {
+          width: '700px',
+          data: association,
+        });
+      } else {
+        console.error('Association not found');
+      }
+      },
+      (error) => {
+        console.error('Erreur lors de la récupération des détails de l\'association', error);
+      }
+    );
+  }
 
 
  goTo(route: string): void {
