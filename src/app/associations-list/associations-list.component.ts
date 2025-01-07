@@ -72,7 +72,7 @@ export class AssociationsListComponent implements OnInit {
   
         // Ouvrir le dialog avec les données complètes
         this.dialog.open(AssociationDetailsComponent, {
-          width: '400px',
+          width: '800px',
           data: data,
         });
       },
