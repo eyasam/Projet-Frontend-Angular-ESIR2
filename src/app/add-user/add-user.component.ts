@@ -43,5 +43,8 @@ export class AddUserComponent implements OnInit {
 
     }
    
+  navigateToDashboard() {
+    this.router.navigate(['/dashboard']);
+  }
 
 }
