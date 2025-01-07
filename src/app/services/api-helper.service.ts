@@ -3,13 +3,14 @@ import { environment } from '../../environments/environment';
 import { Observable, lastValueFrom } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
-//const base_url: string = 'http://localhost:3000';
+const base_url: string = 'http://localhost:3000';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiHelperService {
-    private readonly base_url: string = environment.base_url;
+  private readonly base_url: string = environment.base_url;
+  
   constructor(private http: HttpClient) { }
 
   public get({
@@ -38,12 +39,10 @@ export class ApiHelperService {
     endpoint,
     data = {},
     queryParams = {},
-    //headers = {},
   }: {
     endpoint: string;
     data?: any;
     queryParams?: any;
-    headers?: any;
   }): Promise<any> {
     return this.request({ endpoint, method: 'PUT', data, queryParams });
   }
@@ -65,24 +64,18 @@ export class ApiHelperService {
     method = 'GET',
     data = {},
     queryParams = {},
-    //headers = {},
   }: {
     endpoint: string;
     method?: string;
     data?: object;
     queryParams?: any;
-    headers?: any;
   }): Promise<any> {
     const methodWanted = method.toLowerCase();
-    const url = `${this.base_url}${endpoint}`;
 
-    console.log('Envoi de la requête', methodWanted, url, data);
-
-    //const url = base_url + endpoint;
+    const url = base_url + endpoint;
 
     const requestOptions = {
       params: queryParams,
-      //headers: headers,
     };
 
     console.log(method, url, JSON.stringify(requestOptions), JSON.stringify(data));

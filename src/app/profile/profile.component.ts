@@ -1,81 +1,107 @@
-import { Component,OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TokenStorageService } from '../services/token-storage.service';
-import { Router } from '@angular/router';
-import { ApiHelperService } from '../services/api-helper.service';  
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ApiHelperService } from '../services/api-helper.service';
 
 
 @Component({
   selector: 'app-profile',
   standalone: false,
-  
-  templateUrl: './profile.component.html',
-  styleUrl: './profile.component.css'
-})
-export class ProfileComponent implements OnInit {
-  profileForm: FormGroup;
-  errorMessage: string = '';
-  successMessage: string = '';
 
-  constructor(private api: ApiHelperService, private tokenStorageService: TokenStorageService,
-    private router: Router,
-    private fb: FormBuilder) {
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.css'],
+})
+export class ProfileComponent {
+  profileForm!: FormGroup;
+
+  errorMssg: string = '';
+  successMssg: string = '';
+  userId: number | undefined;
+  user: any = {};
+
+  constructor(
+    private fb: FormBuilder,
+    private tokenStorageService: TokenStorageService,
+    private api: ApiHelperService
+  ) {
     this.profileForm = this.fb.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required],
+      oldPass: ['', [Validators.required]],
+      newPass: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPass: ['', [Validators.required]],
     });
   }
 
   ngOnInit(): void {
-    this.loadUserData();
-  }
+    const user = this.tokenStorageService.getUser(); 
+    const token = this.tokenStorageService.getToken(); 
 
-  loadUserData(): void {
-   const token = this.tokenStorageService.getToken();
-   if (token) {
-    const user = this.decodeToken(token);
-    if (user) {
-      this.profileForm.patchValue({
-        username: user.username,
-      });
+    if (user && token) {
+      this.user = user;
+      this.userId = user.username;
+      console.log('Utilisateur connecté, ID:', this.userId);
+    } else {
+      this.errorMssg = 'Aucun utilisateur ou jeton trouvé';
+      this.hideMessageAfterDelay();
     }
   }
-}
 
-decodeToken(token: string): any {
-  try {
-    const payload = token.split('.')[1];
-    const decodedPayload = atob(payload);
-    return JSON.parse(decodedPayload);
-  } catch (e) {
-    console.error('Error while decoding token', e);
-    return null;
+  get formControls() {
+    return this.profileForm.controls;
   }
-}
 
-onSubmit(): void {
-  console.log('submit');
-  if(this.profileForm.valid) {
-    const user = this.tokenStorageService.getUser();
-    if(user){
-      const { username, password } = this.profileForm.value;
-      const token = this.tokenStorageService.getToken();
-      const headers = { Authorization: `Bearer ${token}` };
-      this.api.put({
-        endpoint: `/users/${user.id}`,
-        data: { username, password },
-        headers: headers,
-      }).then(response => {
-        console.log(response);
-        this.successMessage = 'Vos informations ont été mises à jour avec succès.';
-      }).catch((error) => {
-        console.error('Error while updating user data', error);
-        this.errorMessage = 'Une erreur est survenue lors de la mise à jour de vos informations.';
-      });
+  passwordsMatch(): boolean {
+    const newPass = this.profileForm.get('newPass')?.value;
+    const confirmPass = this.profileForm.get('confirmPass')?.value;
+    return newPass === confirmPass;
+  }
+
+  updateProfile(): void {
+    const oldPassword = this.profileForm.get('oldPass')?.value;
+    const newPassword = this.profileForm.get('newPass')?.value;
+    
+    if (!this.tokenStorageService.validateOldPassword(oldPassword)) {
+      this.errorMssg = 'L’ancien mot de passe est incorrect.';
+      this.hideMessageAfterDelay();
+      return;
     }
+  
+    if (!this.userId) {
+      this.errorMssg = 'Erreur : utilisateur non connecté.';
+      this.hideMessageAfterDelay();
+      return;
+    }
+  
+    const updatePayload = {
+      firstname: this.user.firstname,
+      lastname: this.user.lastname,
+      age: this.user.age,
+      password: newPassword, 
+    };
+  
+    console.log('Payload de mise à jour :', updatePayload);
+  
+    const endpoint = `/users/${this.userId}`;
+  
+    this.api
+      .put({ endpoint, data: updatePayload })
+      .then(() => {
+        this.successMssg = 'Votre mot de passe a été mis à jour avec succès.';
+        this.tokenStorageService.saveCurrentPassword(newPassword); 
+        console.log('Nouveau mot de passe sauvegardé :', newPassword);
+        this.hideMessageAfterDelay();
+        this.profileForm.reset();
+      })
+      .catch((error: any) => {
+        this.errorMssg = 'Erreur lors de la mise à jour du profil : ' + error.message;
+        this.hideMessageAfterDelay();
+      });
   }
+  
+  
+  hideMessageAfterDelay(): void {
+    setTimeout(() => {
+      this.successMssg = '';
+      this.errorMssg = '';
+    }, 5000); 
   }
-
 }
-
-

@@ -16,6 +16,14 @@
     <span class="detail-label">Âge :</span>
     <span class="detail-value">{{ data.age }}</span>
   </div>
+  <div *ngIf="data.associations && data.associations.length">
+    <h3>Associations :</h3>
+    <ul>
+      <li *ngFor="let association of data.associations">
+        {{ association }} 
+      </li>
+    </ul>
+  </div>
 </div>
 <!-- <div class="user-detail-actions">
   <button mat-raised-button color="primary" mat-dialog-close>Fermer</button>

@@ -1,26 +1,69 @@
 <div class="profile-container">
-    <h2>Mon Profil</h2>
-    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
-      <div>
-        <label for="username">Nom d'utilisateur</label>
-        <input id="username" formControlName="username" type="text" />
+  <h2>Mettre à jour le mot de passe</h2>
+
+  <form [formGroup]="profileForm" (ngSubmit)="updateProfile()">
+    <!-- Ancien mot de passe -->
+    <div>
+      <label for="oldPass">Ancien mot de passe</label>
+      <input
+        type="password"
+        id="oldPass"
+        formControlName="oldPass"
+        class="form-control"
+      />
+      <div *ngIf="formControls['oldPass'].touched && formControls['oldPass'].errors">
+        <small class="text-danger" *ngIf="formControls['oldPass'].errors['required']">
+          L'ancien mot de passe est requis.
+        </small>
+        <small class="text-danger" *ngIf="formControls['oldPass'].errors['minlength']">
+          L'ancien mot de passe doit contenir au moins 6 caractères.
+        </small>
       </div>
-  
-      <div>
-        <label for="password">Nouveau mot de passe</label>
-        <input id="password" formControlName="password" type="password" />
+    </div>
+
+    <div>
+      <label for="newPass">Nouveau mot de passe</label>
+      <input
+        type="password"
+        id="newPass"
+        formControlName="newPass"
+        class="form-control"
+      />
+      <div *ngIf="formControls['newPass'].touched && formControls['newPass'].errors">
+        <small class="text-danger" *ngIf="formControls['newPass'].errors['required']">
+          Le nouveau mot de passe est requis.
+        </small>
+        <small class="text-danger" *ngIf="formControls['newPass'].errors['minlength']">
+          Le nouveau mot de passe doit contenir au moins 6 caractères.
+        </small>
       </div>
-  
-      <button type="submit">Mettre à jour</button>
-      <!-- <button type="submit" [disabled]="profileForm.invalid">Mettre à jour</button> -->
-    </form>
-  
-    <div *ngIf="successMessage" class="success-message">
-      {{ successMessage }}
     </div>
-  
-    <div *ngIf="errorMessage" class="error-message">
-      {{ errorMessage }}
+
+    <!-- Confirmation du mot de passe -->
+    <div>
+      <label for="confirmPass">Confirmer le mot de passe</label>
+      <input
+        type="password"
+        id="confirmPass"
+        formControlName="confirmPass"
+        class="form-control"
+      />
+      <div *ngIf="formControls['confirmPass'].touched && !passwordsMatch()">
+        <small class="text-danger">Les mots de passe ne correspondent pas.</small>
+      </div>
     </div>
+
+    <!-- Bouton pour soumettre -->
+    <button type="submit" [disabled]="profileForm.invalid" class="btn btn-primary">
+      Mettre à jour
+    </button>
+  </form>
+
+  <!-- Messages de succès et d'erreur -->
+  <div *ngIf="successMssg" class="alert alert-success mt-3">
+    {{ successMssg }}
   </div>
-  
+  <div *ngIf="errorMssg" class="alert alert-danger mt-3">
+    {{ errorMssg }}
+  </div>
+</div>

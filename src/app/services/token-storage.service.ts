@@ -1,93 +1,68 @@
-// import { Injectable } from '@angular/core';
-
-
-// const TOKEN_KEY = 'token';
-// const USERNAME_KEY = 'username';
-// const IS_LOGGED_IN = 'isLoggedIn';
-// const IS_LOGGED = 'true';
-
-// @Injectable({
-//   providedIn: 'root'
-// })
-// export class TokenStorageService {
-
-//   public clear(): void {
-//     localStorage.clear();
-//   }
-//   public save(token: string): void {
-//     localStorage.removeItem(TOKEN_KEY);
-//     localStorage.removeItem(USERNAME_KEY );
-//     localStorage.removeItem(IS_LOGGED_IN);
-//     localStorage.setItem(TOKEN_KEY, token);
-//     localStorage.setItem(IS_LOGGED_IN, IS_LOGGED);
-//   }
-//   public getToken(): string {
-//     const token = localStorage.getItem(TOKEN_KEY);
-//     return token === null ? '' : token;
-//   }
-
-//   public getUser(): any {
-//     const user = localStorage.getItem(USERNAME_KEY);
-//     return user ? JSON.parse(user) : null; // Retourne l'utilisateur ou null si non trouvé
-//   }
-
-//   public isLogged(): boolean {
-//     return (Boolean)(localStorage.getItem(IS_LOGGED_IN));
-//   }
-// }
-
 import { Injectable } from '@angular/core';
-
 const TOKEN_KEY = 'token';
 const USERNAME_KEY = 'username';
 const IS_LOGGED_IN = 'isLoggedIn';
 const IS_LOGGED = 'true';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TokenStorageService {
-  
-  private isLocalStorageAvailable(): boolean {
-    return typeof window !== 'undefined' && typeof localStorage !== 'undefined';
-  }
+  private currentPassword: string | null = null; // Stockage temporaire
 
   public clear(): void {
-    if (this.isLocalStorageAvailable()) {
-      localStorage.clear();
-    }
+    localStorage.clear();
+    this.currentPassword = null; 
   }
 
-  public save(token: string): void {
-    if (this.isLocalStorageAvailable()) {
-      localStorage.removeItem(TOKEN_KEY);
-      localStorage.removeItem(USERNAME_KEY);
-      localStorage.removeItem(IS_LOGGED_IN);
-      localStorage.setItem(TOKEN_KEY, token);
-      localStorage.setItem(IS_LOGGED_IN, IS_LOGGED);
-    }
+  public save(token: string, username: string): void {
+    localStorage.removeItem(TOKEN_KEY);
+    localStorage.removeItem(USERNAME_KEY);
+    localStorage.removeItem(IS_LOGGED_IN);
+    localStorage.setItem(TOKEN_KEY, token);
+    localStorage.setItem(USERNAME_KEY, username);
+    localStorage.setItem(IS_LOGGED_IN, IS_LOGGED);
   }
+
+  public saveCurrentPassword(password: string): void {
+    this.currentPassword = password;
+    console.log('Mot de passe actuel sauvegardé :', this.currentPassword);
+
+  }
+
+  public validateOldPassword(inputPassword: string): boolean {
+    console.log('Mot de passe actuel attendu :', this.currentPassword);
+    console.log('Mot de passe saisi par l’utilisateur :', inputPassword);
+    return this.currentPassword === inputPassword;
+  }
+  
 
   public getToken(): string {
-    if (this.isLocalStorageAvailable()) {
-      const token = localStorage.getItem(TOKEN_KEY);
-      return token === null ? '' : token;
-    }
-    return ''; // Retourne une chaîne vide si `localStorage` n'est pas disponible
+    const token = localStorage.getItem(TOKEN_KEY);
+    return token === null ? '' : token;
   }
 
   public getUser(): any {
-    if (this.isLocalStorageAvailable()) {
-      const user = localStorage.getItem(USERNAME_KEY);
-      return user ? JSON.parse(user) : null; // Retourne l'utilisateur ou null si non trouvé
+    const token = this.getToken();
+    if (!token) return null;
+
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      return payload;
+    } catch (error) {
+      console.error('Erreur lors du décodage du token JWT :', error);
+      return null;
     }
-    return null; // Si `localStorage` n'est pas disponible
   }
 
   public isLogged(): boolean {
-    if (this.isLocalStorageAvailable()) {
+    if (typeof localStorage !== 'undefined') {
       return localStorage.getItem(IS_LOGGED_IN) === IS_LOGGED;
     }
-    return false; // Considère non connecté si `localStorage` n'est pas disponible
+    return false;
+  }
+
+  public hasToken(): boolean {
+    return !!localStorage.getItem(TOKEN_KEY);
   }
 }

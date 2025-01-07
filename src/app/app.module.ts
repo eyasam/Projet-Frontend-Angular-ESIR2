@@ -30,6 +30,7 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { AssociationSearchDetailsComponent } from './association-search-details/association-search-details.component';
 import { AddAssociationComponent } from './add-association/add-association.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 
 @NgModule({
@@ -59,6 +60,7 @@ import { AddAssociationComponent } from './add-association/add-association.compo
     BrowserAnimationsModule,
     MatTableModule,
     MatSortModule,
+    MatCheckboxModule,
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
