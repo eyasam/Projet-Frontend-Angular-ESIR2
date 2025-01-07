@@ -1,1 +1,34 @@
-<p>add-association works!</p>
+<div class="add-user-container">
+    <h2 class="add-user-title">Créer une Association</h2>
+  
+    <form [formGroup]="associationForm" (ngSubmit)="submit()">
+      <div class="form-field">
+        <label for="associationName">Nom de l'association</label>
+        <input 
+          id="associationName" 
+          formControlName="associationName" 
+          class="form-input" 
+          [ngClass]="{'invalid': associationForm.get('associationName')?.invalid && associationForm.get('associationName')?.touched}" 
+        />
+        <div *ngIf="associationForm.get('associationName')?.invalid && associationForm.get('associationName')?.touched" class="error-message">
+          Le nom de l'association est requis.
+        </div>
+      </div>
+  
+      <div class="user-list">
+        <h3>Utilisateurs</h3>
+        <div *ngFor="let user of users">
+          <mat-checkbox 
+            [checked]="selectedUsers.includes(user.id)" 
+            (change)="onUserCheckboxChange(user.id, $event)">
+            {{ user.firstname }} {{ user.lastname }}
+          </mat-checkbox>
+        </div>
+      </div>
+  
+      <div class="form-actions">
+        <button type="submit" mat-button [disabled]="associationForm.invalid">Soumettre</button>
+      </div>
+    </form>
+  </div>
+  
