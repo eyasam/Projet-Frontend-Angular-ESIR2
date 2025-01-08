@@ -40,6 +40,16 @@
   background: #f9f9f9;
 }
 
+.detail-value,
+.member-item,
+.minute-item {
+  word-wrap: break-word; 
+  overflow-wrap: break-word;
+  word-break: break-word; 
+  white-space: pre-wrap; 
+}
+
+
 .no-data-message {
   color: #777;
   font-style: italic;
