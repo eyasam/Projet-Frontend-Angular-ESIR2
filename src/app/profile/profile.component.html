@@ -54,9 +54,14 @@
     </div>
 
     <!-- Bouton pour soumettre -->
-    <button type="submit" [disabled]="profileForm.invalid" class="btn btn-primary">
-      Mettre à jour
-    </button>
+    <button
+    type="submit"
+    [disabled]="profileForm.invalid || !passwordsMatch()"
+    class="btn btn-primary"
+  >
+    Mettre à jour
+  </button>
+  
   </form>
 
   <!-- Messages de succès et d'erreur -->

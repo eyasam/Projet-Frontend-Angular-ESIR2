@@ -24,12 +24,18 @@ export class ProfileComponent {
     private tokenStorageService: TokenStorageService,
     private api: ApiHelperService
   ) {
-    this.profileForm = this.fb.group({
-      oldPass: ['', [Validators.required]],
-      newPass: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPass: ['', [Validators.required]],
-    });
+    this.profileForm = this.fb.group(
+      {
+        oldPass: ['', [Validators.required]],
+        newPass: ['', [Validators.required, Validators.minLength(6)]],
+        confirmPass: ['', [Validators.required]],
+      },
+      {
+        validators: this.passwordsMatchValidator,
+      }
+    );
   }
+  
 
   ngOnInit(): void {
     const user = this.tokenStorageService.getUser(); 
@@ -97,6 +103,11 @@ export class ProfileComponent {
       });
   }
   
+  passwordsMatchValidator(group: FormGroup): { [key: string]: boolean } | null {
+    const newPass = group.get('newPass')?.value;
+    const confirmPass = group.get('confirmPass')?.value;
+    return newPass === confirmPass ? null : { passwordsMismatch: true };
+  }
   
   hideMessageAfterDelay(): void {
     setTimeout(() => {
