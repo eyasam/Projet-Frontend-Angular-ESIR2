@@ -1,65 +1,120 @@
 <div class="profile-container">
-  <h2>Mettre à jour le mot de passe</h2>
 
-  <form [formGroup]="profileForm" (ngSubmit)="updateProfile()">
-    <div>
-      <label for="oldPass">Ancien mot de passe</label>
-      <input
-        type="password"
-        id="oldPass"
-        formControlName="oldPass"
-        class="form-control"
-      />
-      <div *ngIf="formControls['oldPass'].touched && formControls['oldPass'].errors">
-        <small class="text-danger" *ngIf="formControls['oldPass'].errors['required']">
-          L'ancien mot de passe est requis.
-        </small>
-        <small class="text-danger" *ngIf="formControls['oldPass'].errors['minlength']">
-          L'ancien mot de passe doit contenir au moins 6 caractères.
-        </small>
-      </div>
+  <div *ngIf="!showChangePasswordForm" class="profile-view">
+    <img
+      [src]="'https://ui-avatars.com/api/?name=' + user?.firstname + '+' + user?.lastname + '&background=random'"
+      alt="Photo de profil"
+      class="profile-photo"
+    />
+    <h2>{{ user?.firstname }} {{ user?.lastname }}</h2>
+    <p class="age">{{ user?.age || 'Non spécifié' }}</p>
+    <div class="button-group-modify">
+      <button class="btn btn-primary btn-modify" (click)="toggleEdit()">Modifier le profil</button>
+      <button class="btn btn-primary btn-modify" (click)="toggleChangePasswordForm()">Modifier le mot de passe</button>
     </div>
+    
+  </div>
 
-    <div>
-      <label for="newPass">Nouveau mot de passe</label>
-      <input
-        type="password"
-        id="newPass"
-        formControlName="newPass"
-        class="form-control"
-      />
-      <div *ngIf="formControls['newPass'].touched && formControls['newPass'].errors">
-        <small class="text-danger" *ngIf="formControls['newPass'].errors['required']">
-          Le nouveau mot de passe est requis.
-        </small>
-        <small class="text-danger" *ngIf="formControls['newPass'].errors['minlength']">
-          Le nouveau mot de passe doit contenir au moins 6 caractères.
-        </small>
+  <div *ngIf="isEditing" class="profile-edit">
+    <h2>Modifier le profil</h2>
+    <form (ngSubmit)="updateProfile()">
+      <div>
+        <label for="firstname">Prénom</label>
+        <input
+          type="text"
+          id="firstname"
+          class="form-control"
+          [(ngModel)]="editUser.firstname"
+          name="firstname"
+        />
       </div>
-    </div>
-
-    <div>
-      <label for="confirmPass">Confirmer le mot de passe</label>
-      <input
-        type="password"
-        id="confirmPass"
-        formControlName="confirmPass"
-        class="form-control"
-      />
-      <div *ngIf="formControls['confirmPass'].touched && !passwordsMatch()">
-        <small class="text-danger">Les mots de passe ne correspondent pas.</small>
-      </div>
-    </div>
-
-    <button
-    type="submit"
-    [disabled]="profileForm.invalid || !passwordsMatch()"
-    class="btn btn-primary"
-  >
-    Mettre à jour
-  </button>
   
-  </form>
+      <div>
+        <label for="lastname">Nom</label>
+        <input
+          type="text"
+          id="lastname"
+          class="form-control"
+          [(ngModel)]="editUser.lastname"
+          name="lastname"
+        />
+      </div>
+  
+      <div>
+        <label for="age">Âge</label>
+        <input
+          type="number"
+          id="age"
+          class="form-control"
+          [(ngModel)]="editUser.age"
+          name="age"
+        />
+      </div>
+  
+      <div class="button-group">
+        <button type="submit" class="btn btn-success">Enregistrer</button>
+        <button type="button" class="btn btn-danger" (click)="toggleEdit()">
+          Annuler
+        </button>
+      </div>
+    </form>
+  </div>
+  
+
+  <div *ngIf="showChangePasswordForm">
+    <h2>Changer le mot de passe</h2>
+    <form [formGroup]="profileForm" (ngSubmit)="updatePassword()">
+      <div>
+        <label for="oldPass">Ancien mot de passe</label>
+        <input
+          type="password"
+          id="oldPass"
+          formControlName="oldPass"
+          class="form-control"
+        />
+      </div>
+
+      <div>
+        <label for="newPass">Nouveau mot de passe</label>
+        <input
+          type="password"
+          id="newPass"
+          formControlName="newPass"
+          class="form-control"
+        />
+      </div>
+
+      <div>
+        <label for="confirmPass">Confirmer le mot de passe</label>
+        <input
+          type="password"
+          id="confirmPass"
+          formControlName="confirmPass"
+          class="form-control"
+        />
+      </div>
+      <div class="button-group">
+
+      <button
+        type="submit"
+        [disabled]="profileForm.invalid"
+        class="btn btn-success"
+      >
+        Mettre à jour
+      </button>
+      
+      <button
+        type="button"
+        class="btn btn-danger"
+        (click)="toggleChangePasswordForm()"
+      >
+        Annuler
+      </button>
+    </div>
+
+    </form>
+
+  </div>
 
   <div *ngIf="successMssg" class="alert alert-success mt-3">
     {{ successMssg }}

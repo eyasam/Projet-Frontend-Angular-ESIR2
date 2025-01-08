@@ -13,11 +13,13 @@ import { ApiHelperService } from '../services/api-helper.service';
 })
 export class ProfileComponent {
   profileForm!: FormGroup;
-
+  showChangePasswordForm: boolean = false;
+  isEditing: boolean = false;
   errorMssg: string = '';
   successMssg: string = '';
   userId: number | undefined;
   user: any = {};
+  editUser: any = {};
 
   constructor(
     private fb: FormBuilder,
@@ -28,14 +30,54 @@ export class ProfileComponent {
       {
         oldPass: ['', [Validators.required]],
         newPass: ['', [Validators.required, Validators.minLength(6)]],
-        confirmPass: ['', [Validators.required]],
+        confirmPass: ['', [Validators.required, Validators.minLength(6)]],
       },
       {
         validators: this.passwordsMatchValidator,
       }
     );
+    
   }
+
   
+toggleEdit(): void {
+  this.isEditing = !this.isEditing;
+
+  if (this.isEditing) {
+    this.editUser = { ...this.user };
+  } else {
+    this.editUser = {};
+  }
+}
+
+
+updateProfile(): void {
+  if (!this.userId) {
+    this.errorMssg = 'Erreur : utilisateur non connecté.';
+    this.hideMessageAfterDelay();
+    return;
+  }
+
+  const updatePayload = {
+    firstname: this.editUser.firstname,
+    lastname: this.editUser.lastname,
+    age: this.editUser.age,
+  };
+
+  const endpoint = `/users/${this.userId}`;
+  this.api
+    .put({ endpoint, data: updatePayload })
+    .then(() => {
+      this.user = { ...this.editUser };
+      this.successMssg = 'Profil mis à jour avec succès.';
+      this.isEditing = false;
+      this.hideMessageAfterDelay();
+    })
+    .catch((error: any) => {
+      this.errorMssg = 'Erreur lors de la mise à jour du profil : ' + error.message;
+      this.hideMessageAfterDelay();
+    });
+}
 
   ngOnInit(): void {
     const user = this.tokenStorageService.getUser(); 
@@ -43,8 +85,21 @@ export class ProfileComponent {
 
     if (user && token) {
       this.user = user;
+      this.editUser = { ...user };
       this.userId = user.username;
       console.log('Utilisateur connecté, ID:', this.userId);
+
+      const endpoint = `/users/${this.userId}`; 
+      this.api
+        .get({ endpoint })
+        .then((response) => {
+          this.user = response;
+          console.log('Données utilisateur:', this.user);
+        })
+        .catch((error: any) => {
+          this.errorMssg = 'Erreur lors de la récupération des données utilisateur : ' + error.message;
+          this.hideMessageAfterDelay();
+        });
     } else {
       this.errorMssg = 'Aucun utilisateur ou jeton trouvé';
       this.hideMessageAfterDelay();
@@ -60,11 +115,9 @@ export class ProfileComponent {
     const confirmPass = this.profileForm.get('confirmPass')?.value;
     return newPass === confirmPass;
   }
-
-  updateProfile(): void {
+  updatePassword(): void {
     const oldPassword = this.profileForm.get('oldPass')?.value;
     const newPassword = this.profileForm.get('newPass')?.value;
-    
     if (!this.tokenStorageService.validateOldPassword(oldPassword)) {
       this.errorMssg = 'L’ancien mot de passe est incorrect.';
       this.hideMessageAfterDelay();
@@ -95,6 +148,7 @@ export class ProfileComponent {
         this.tokenStorageService.saveCurrentPassword(newPassword); 
         console.log('Nouveau mot de passe sauvegardé :', newPassword);
         this.hideMessageAfterDelay();
+        this.toggleChangePasswordForm();
         this.profileForm.reset();
       })
       .catch((error: any) => {
@@ -109,6 +163,9 @@ export class ProfileComponent {
     return newPass === confirmPass ? null : { passwordsMismatch: true };
   }
   
+  toggleChangePasswordForm(): void {
+    this.showChangePasswordForm = !this.showChangePasswordForm;
+  }
   hideMessageAfterDelay(): void {
     setTimeout(() => {
       this.successMssg = '';

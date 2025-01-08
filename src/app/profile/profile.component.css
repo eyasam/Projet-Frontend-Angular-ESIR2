@@ -1,23 +1,94 @@
 .profile-container {
-  padding: 40px 20px;
-  background-color: #f4f7f6;
-  min-height: 100vh;
-  max-width: 600px;
-  margin: 0 auto;
+  width: 80%; 
+  max-width: 800px; 
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
+  background-color: #f1f1f1;
+  text-align: center; 
+  margin: 20px auto;
+}
+
+.profile-container form div {
+  margin-right: 20px; 
 }
 
 .profile-container h2 {
-  text-align: center;
-  font-size: 2rem;
-  margin-bottom: 20px;
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+  color: #333;
 }
 
-.profile-container label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
+.profile-view {
+  text-align: center;
+}
+
+.profile-photo {
+  width: 100px; 
+  height: 100px; 
+  border-radius: 20%; 
+}
+
+
+button.btn {
+  font-size: 14px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+button.btn:hover {
+  background-color: #f0f0f0;
+}
+
+button.btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.btn-modify {
+  font-weight: bold; 
+  background-color: #ffffff; 
+  color: rgb(0, 0, 0); 
+  padding: 12px 20px; 
+  border: 1px solid #f8f8f8; 
+  border-radius: 5px;
+  transition: all 0.3s ease-in-out; 
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  color: white;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+}
+
+.btn-success {
+  background-color: #28a745;
+  color: white;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+}
+
+.button-group {
+  display: flex;
+  justify-content: center; 
+  gap: 10px; 
+  margin-top: 20px;
+}
+
+.button-group-modify {
+  display: flex; 
+  justify-content: center; 
+  gap: 15px; 
+  margin-top: 20px; 
 }
 
 .profile-container .form-control {
@@ -26,7 +97,8 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 16px;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+  transition: border-color 0.3s ease;
 }
 
 .form-control.invalid {
@@ -37,33 +109,6 @@
   color: red;
   font-size: 0.875rem;
   margin-top: 5px;
-}
-
-button.btn {
-  background-color: #4CAF50;
-  color: white;
-  font-size: 18px;
-  padding: 12px 20px;
-  width: 100%;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-}
-
-button.btn:hover {
-  background-color: #45a049;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  transform: translateY(-3px);
-}
-
-button.btn:focus {
-  outline: none;
-  border: 2px solid #45a049;
-}
-
-button.btn:disabled {
-  background-color: #ccc;
 }
 
 .alert {
@@ -84,7 +129,8 @@ button.btn:disabled {
 
 @media (max-width: 768px) {
   .profile-container {
-    padding: 20px;
+    max-width: 90%;
+    padding: 15px;
   }
 
   .profile-container h2 {
@@ -96,7 +142,7 @@ button.btn:disabled {
   }
 
   button.btn {
-    font-size: 0.9rem;
-    padding: 10px 15px;
+    font-size: 14px;
+    padding: 8px 15px;
   }
 }
