@@ -1,0 +1,30 @@
+<form [formGroup]="minuteForm" (ngSubmit)="saveMinute()" class="add-minute-dialog-container">
+    <div class="form-field">
+      <label for="content">Contenu:</label>
+      <input id="content" formControlName="content" class="form-input"/>
+    </div>
+  
+    <div class="form-field">
+      <label for="date">Date:</label>
+      <input id="date" formControlName="date" type="date" class="form-input"/>
+    </div>
+  
+    <div class="voter-list">
+      <label for="voters">Sélectionnez les votants:</label>
+      <div *ngFor="let member of users">
+        <input 
+          type="checkbox" 
+          [value]="member.id"
+          (change)="onVoterSelectionChange($event, member.id)" 
+          [checked]="isVoterSelected(member.id)"
+        />
+        {{ member.firstname }} {{ member.lastname }}
+      </div>
+    </div>
+  
+    <div class="form-actions">
+      <button type="submit" [disabled]="minuteForm.invalid">Enregistrer</button>
+      <button type="button" (click)="closeDialog()">Annuler</button>
+    </div>
+  </form>
+  

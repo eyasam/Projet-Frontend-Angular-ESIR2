@@ -27,6 +27,9 @@
         <a (click)="showMinuteDetails(minute.id)" class="clickable" role="button">Voir les détails</a>
       </li>
     </ul>
+    <div class="add-minute">
+      <button mat-button (click)="openAddMinuteDialog()">Ajouter une Minute</button>
+    </div>
     <ng-template #noMinutes>
       <p class="no-data-message">Aucune minute enregistrée pour cette association.</p>
     </ng-template>

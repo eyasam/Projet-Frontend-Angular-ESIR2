@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MinuteDetailsDialogComponent } from '../minute-details-dialog/minute-details-dialog.component';
+import { AddMinuteDialogComponent } from '../add-minute-dialog/add-minute-dialog.component';
 
 @Component({
   selector: 'app-association-details',
@@ -31,6 +32,30 @@ export class AssociationDetailsComponent {
     console.log('Association data received: ', this.data);
   }
 
+
+  openAddMinuteDialog(): void {
+    const dialogRef = this.dialog.open(AddMinuteDialogComponent, {
+      width: '800px',
+      data: { associationId: this.data.id }
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log('Minute ajoutée avec succès');
+        
+        this.http.get(`http://localhost:3000/associations/${this.data.id}`).subscribe({
+          next: (updatedData: any) => {
+            this.data = updatedData; 
+          },
+          error: (error) => {
+            console.error('Erreur lors de la mise à jour des données', error);
+          }
+        });
+      }
+    });
+  }
+
+  
   showMinuteDetails(minuteId: number): void {
     const url = `http://localhost:3000/minutes/${minuteId}`;
     this.http.get(url).subscribe({

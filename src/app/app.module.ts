@@ -31,6 +31,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { AssociationSearchDetailsComponent } from './association-search-details/association-search-details.component';
 import { AddAssociationComponent } from './add-association/add-association.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { AddMinuteDialogComponent } from './add-minute-dialog/add-minute-dialog.component';
 
 
 @NgModule({
@@ -52,6 +53,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     AddRoleFormComponent,
     AssociationSearchDetailsComponent,
     AddAssociationComponent,
+    AddMinuteDialogComponent,
     
   ],
   imports: [

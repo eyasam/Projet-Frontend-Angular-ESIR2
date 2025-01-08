@@ -45,6 +45,40 @@
   font-style: italic;
 }
 
+button {
+  background-color: #4CAF50;
+  color: white;
+  font-size: 18px;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  text-transform: uppercase;
+  font-weight: 500;
+  width: 70%;
+  max-width: 250px;
+  margin: 0 auto;
+}
+
+button:hover {
+  background-color: #45a049;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+}
+
+button:focus {
+  outline: none;
+  border: 2px solid #45a049;
+}
+
+button:active {
+  background-color: #388e3c;
+  transform: translateY(0);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
 .clickable {
   cursor: pointer;
   color: #4CAF50;
