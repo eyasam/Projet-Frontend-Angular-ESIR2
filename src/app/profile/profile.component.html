@@ -2,7 +2,6 @@
   <h2>Mettre à jour le mot de passe</h2>
 
   <form [formGroup]="profileForm" (ngSubmit)="updateProfile()">
-    <!-- Ancien mot de passe -->
     <div>
       <label for="oldPass">Ancien mot de passe</label>
       <input
@@ -39,7 +38,6 @@
       </div>
     </div>
 
-    <!-- Confirmation du mot de passe -->
     <div>
       <label for="confirmPass">Confirmer le mot de passe</label>
       <input
@@ -53,7 +51,6 @@
       </div>
     </div>
 
-    <!-- Bouton pour soumettre -->
     <button
     type="submit"
     [disabled]="profileForm.invalid || !passwordsMatch()"
@@ -64,7 +61,6 @@
   
   </form>
 
-  <!-- Messages de succès et d'erreur -->
   <div *ngIf="successMssg" class="alert alert-success mt-3">
     {{ successMssg }}
   </div>
