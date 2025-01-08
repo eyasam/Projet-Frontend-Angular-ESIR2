@@ -1,9 +1,10 @@
 <h2 class="dialog-title">Modifier les rôles des membres</h2>
 <div class="dialog-container">
   <form *ngIf="roleForm" [formGroup]="roleForm" (ngSubmit)="onSubmit()">
+    <!-- Sélection du membre -->
     <mat-form-field class="dialog-row" appearance="fill">
-      <mat-label class="dialog-label">Membre</mat-label>
-      <mat-select formControlName="memberId" (selectionChange)="fetchRole()" required class="dialog-input">
+      <mat-label>Membre</mat-label>
+      <mat-select formControlName="memberId" (selectionChange)="fetchRole()" required>
         <mat-option *ngFor="let member of members" [value]="member.id">
           {{ member.firstname }} {{ member.lastname }}
         </mat-option>
@@ -13,21 +14,20 @@
       </mat-error>
     </mat-form-field>
 
+    <!-- Saisie du rôle -->
     <mat-form-field class="dialog-row" appearance="fill">
-      <mat-label class="dialog-label">Rôle</mat-label>
-      <mat-select formControlName="role" required class="dialog-input">
-        <mat-option *ngFor="let role of availableRoles" [value]="role">
-          {{ role }}
-        </mat-option>
-      </mat-select>
+      <mat-label>Rôle</mat-label>
+      <input matInput formControlName="role" required placeholder="Entrez un rôle" />
       <mat-error *ngIf="roleForm.get('role')?.hasError('required')">
-        Ce champ est requis.
-      </mat-error>
+        Veuillez entrer un rôle.
+      </mat-error>      
     </mat-form-field>
 
+    <!-- Boutons d'action -->
     <div class="dialog-actions">
-      
-      <button mat-raised-button color="primary" type="submit" [disabled]="roleForm.invalid" class="dialog-button">Modifier Rôle</button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="roleForm.invalid">
+        Modifier Rôle
+      </button>      
     </div>
   </form>
 </div>

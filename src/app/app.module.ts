@@ -33,7 +33,7 @@ import { AddAssociationComponent } from './add-association/add-association.compo
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AddMinuteDialogComponent } from './add-minute-dialog/add-minute-dialog.component';
 import { AddUserAssociationComponent } from './add-user-association/add-user-association.component';
-
+import { MatInputModule } from '@angular/material/input'; 
 
 @NgModule({
   declarations: [
@@ -71,6 +71,7 @@ import { AddUserAssociationComponent } from './add-user-association/add-user-ass
     MatFormFieldModule,
     MatSelectModule,
     MatOptionModule,
+    MatInputModule,
     RouterModule.forRoot([]),
   ],
   providers: [
