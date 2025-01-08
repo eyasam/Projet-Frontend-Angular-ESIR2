@@ -44,7 +44,7 @@ export class LoginComponent {
         this.tokenStorageService.saveCurrentPassword(password); // Stocker temporairement le mot de passe
         console.log('Mot de passe sauvegardé pendant la connexion :', password);
         if (this.tokenStorageService.isLogged()) {
-          this.router.navigateByUrl('/users');
+          this.router.navigateByUrl('/dashboard');
         }
       })
       .catch((error) => {
