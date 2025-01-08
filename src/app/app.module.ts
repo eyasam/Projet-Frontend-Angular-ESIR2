@@ -32,6 +32,7 @@ import { AssociationSearchDetailsComponent } from './association-search-details/
 import { AddAssociationComponent } from './add-association/add-association.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AddMinuteDialogComponent } from './add-minute-dialog/add-minute-dialog.component';
+import { AddUserAssociationComponent } from './add-user-association/add-user-association.component';
 
 
 @NgModule({
@@ -54,6 +55,7 @@ import { AddMinuteDialogComponent } from './add-minute-dialog/add-minute-dialog.
     AssociationSearchDetailsComponent,
     AddAssociationComponent,
     AddMinuteDialogComponent,
+    AddUserAssociationComponent,
     
   ],
   imports: [

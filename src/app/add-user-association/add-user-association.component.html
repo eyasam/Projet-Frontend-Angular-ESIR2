@@ -1,0 +1,33 @@
+<div class="add-user-association-container">
+    <h2>Ajouter un utilisateur à une association</h2>
+  
+    <table class="association-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nom de l'association</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let association of associations">
+          <td>{{ association.id }}</td>
+          <td>{{ association.name }}</td>
+          <td>
+            <button (click)="selectAssociation(association.id)">Ajouter un utilisateur</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <div *ngIf="selectedAssociationId">
+      <h3>Sélectionnez un utilisateur pour l'association {{ selectedAssociationId }}</h3>
+      <select [(ngModel)]="selectedUserId">
+        <option *ngFor="let user of users" [value]="user.id">
+          {{ user.firstname }} {{ user.lastname }}
+        </option>
+      </select>
+      <button (click)="addUserToAssociation()">Ajouter</button>
+    </div>
+  </div>
+  

@@ -11,9 +11,11 @@ import { AddUserComponent } from './add-user/add-user.component';
 import { AssociationsListComponent } from './associations-list/associations-list.component';
 import { AssociationEditComponent } from './association-edit/association-edit.component';
 import { AddAssociationComponent } from './add-association/add-association.component';
+import { AddUserAssociationComponent } from './add-user-association/add-user-association.component';
 
 
 const routes: Routes = [
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'users', component: UsersListComponent ,canActivate: [authGuard]},
   { path: 'login', component: LoginComponent, canActivate: [loginGuard] },
   { path: 'profile', component: ProfileComponent, canActivate: [authGuard] },
@@ -23,7 +25,8 @@ const routes: Routes = [
   { path: 'associations', component: AssociationsListComponent, canActivate: [authGuard] },
   { path: 'associations/add', component: AddAssociationComponent, canActivate: [authGuard] },
   { path: 'associations/:id/edit', component: AssociationEditComponent, canActivate: [authGuard] },
-  { path: '', redirectTo: '/login', pathMatch: 'full' }
+  { path: 'add-user-association', component: AddUserAssociationComponent, canActivate: [authGuard]},
+  
 ];
 
 @NgModule({
