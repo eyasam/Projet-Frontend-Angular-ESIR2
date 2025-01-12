@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { ReactiveFormsModule } from '@angular/forms';
 import { AddAssociationComponent } from './add-association.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('AddAssociationComponent', () => {
   let component: AddAssociationComponent;
@@ -8,6 +9,7 @@ describe('AddAssociationComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule, ReactiveFormsModule],
       declarations: [AddAssociationComponent]
     })
     .compileComponents();

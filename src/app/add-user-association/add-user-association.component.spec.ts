@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AddUserAssociationComponent } from './add-user-association.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('AddUserAssociationComponent', () => {
   let component: AddUserAssociationComponent;
@@ -8,6 +9,7 @@ describe('AddUserAssociationComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
       declarations: [AddUserAssociationComponent]
     })
     .compileComponents();

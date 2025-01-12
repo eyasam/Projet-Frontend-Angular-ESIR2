@@ -1,14 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { UsersListComponent } from './users-list.component';
+import { MatTableModule } from '@angular/material/table';
 
 describe('UsersListComponent', () => {
   let component: UsersListComponent;
   let fixture: ComponentFixture<UsersListComponent>;
-
+  
   beforeEach(async () => {
+    
     await TestBed.configureTestingModule({
-      declarations: [UsersListComponent]
+      declarations: [UsersListComponent],
+      imports: [HttpClientTestingModule, MatTableModule],
+      
     })
     .compileComponents();
 
@@ -17,7 +21,10 @@ describe('UsersListComponent', () => {
     fixture.detectChanges();
   });
 
+  
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  
 });
