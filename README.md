@@ -101,6 +101,12 @@ L'application permet :
    ```
 5. Accéder à l’application : [http://localhost:4200](http://localhost:4200)
 
+6. Pour lancer les tests :   
+   ```bash
+   ng test
+   ``` 
+   Nous avons implémenté quelques tests pour certains composants.
+
 ---
 
 ## Choix de conception et implémentation
