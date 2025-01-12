@@ -15,16 +15,12 @@ L'application permet :
   - Accès aux profils utilisateurs avec mise à jour des informations personnelles.
   - Consultation et modification des associations et des utilisateurs.
   - Recherches ciblées par ID ou par Nom.
+  - Création, modification et suppression des utilisateurs et des associations.
+  - Gestion des rôles des membres au sein des associations.
 
 ---
 
 ## Technologies utilisées
-
-### Back-end
-- **Framework** : [NestJS](https://nestjs.com/)
-- **Base de données** : TypeORM
-- **Documentation API** : Swagger (via OpenAPI)
-- **Authentification** : JWT (JSON Web Tokens)
 
 ### Front-end
 - **Framework** : [Angular](https://angular.io/)
@@ -32,24 +28,11 @@ L'application permet :
   - Angular Forms pour les formulaires réactifs.
   - Angular Router pour la navigation.
   - HttpClient pour les requêtes API.
-  - Materials pour créer des UI modernes et responsives.
+  - Angular Materials pour créer des UI modernes et responsives.
 
 ---
 
 ## Fonctionnalités principales
-
-### Back-end
-1. **Gestion des utilisateurs** :
-   - Création, récupération, listing, mise à jour et suppression.
-2. **Gestion des associations** :
-   - Création, récupération, listing et suppression.
-   - Ajout/Modification de rôle pour les membres de l'association   
-   - Ajout, listing des minutes de chaque association      
-3. **Sécurité** :
-   - Authentification avec JWT( en récupérant l'access Token et le stocker dans le Local Storage).
-   - Garde de routes ne pas pouvoir accèder aux différentes routes sans authentification.
-4. **Documentation** :
-   - Documentation dynamique des routes et des points d’entrée de l’API via Swagger.
 
 ### Front-end
 1. **Page de connexion** :
@@ -62,13 +45,29 @@ L'application permet :
    - Affichage des utilisateurs et des associations.
 4. **Consultation de fiches** :
    - Affichage d’informations détaillées sur un utilisateur (associations liées).
-   - Affichage d’informations sur une association (membres (leurs rôles), minutes).
+   - Affichage d’informations sur une association (membres avec leurs rôles, minutes).
 5. **Recherches ciblées** :
    - Rechercher un utilisateur ou une association par son ID ou son Nom.
 6. **Gestion** :
    - Création, modification et suppression d’utilisateurs et d’associations.
    - Modification des rôles au sein des associations.
-   - Création des minutes au sein des associations.
+   - Création et listing des minutes au sein des associations.
+
+---
+## Architecture Front-end
+
+L'application suit une architecture modulaire organisée autour de modules principaux, chacun ayant des responsabilités spécifiques (authentification, gestion des utilisateurs, gestion des associations, etc.). La structure est conçue pour garantir la maintenabilité, la clarté et la réutilisabilité du code.    
+
+![Architecture Front](./picture/architecture.jpeg)
+
+
+- **Modules**:  Ils encapsulent des fonctionnalités spécifiques (par exemple, Auth Module pour la gestion de l'authentification).
+- **Components**: Reliés aux templates via des métadonnées, ils gèrent la logique de l'interface utilisateur et la liaison de données.
+- **Services**: Ils sont injectés dans les composants pour fournir des fonctionnalités communes et gérer les interactions avec l'API backend.
+- **Data Binding**: Le schéma met en évidence les mécanismes de liaison :
+      - **Property Binding**: Pour afficher les données dynamiques dans le DOM.    
+      - **Event Binding**: Pour gérer les interactions utilisateur et propager les événements.
+
 
 ---
 
@@ -110,11 +109,6 @@ L'application permet :
 ---
 
 ## Choix de conception et implémentation
-
-### Back-end
-- Adoption de NestJS pour sa structure modulaire et son intégration fluide avec TypeORM.
-- Implémentation de JWT pour une authentification sécurisée et facile à configurer.
-- Utilisation de Swagger pour générer une documentation interactive et accessible.
 
 ### Front-end
 - Angular a été sélectionné pour ses outils performants tels que les formulaires réactifs et la gestion avancée des routes.
