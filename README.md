@@ -58,15 +58,15 @@ L'application permet :
 
 L'application suit une architecture modulaire organisée autour de modules principaux, chacun ayant des responsabilités spécifiques (authentification, gestion des utilisateurs, gestion des associations, etc.). La structure est conçue pour garantir la maintenabilité, la clarté et la réutilisabilité du code.    
 
-![Architecture Front](./picture/architecture.jpeg)
+![Architecture Front](./picture/architecture.JPEG)
 
 
 - **Modules**:  Ils encapsulent des fonctionnalités spécifiques (par exemple, Auth Module pour la gestion de l'authentification).
 - **Components**: Reliés aux templates via des métadonnées, ils gèrent la logique de l'interface utilisateur et la liaison de données.
 - **Services**: Ils sont injectés dans les composants pour fournir des fonctionnalités communes et gérer les interactions avec l'API backend.
-- **Data Binding**: Le schéma met en évidence les mécanismes de liaison :
-      - **Property Binding**: Pour afficher les données dynamiques dans le DOM.    
-      - **Event Binding**: Pour gérer les interactions utilisateur et propager les événements.
+- **Data Binding**: Le schéma met en évidence les mécanismes de liaison :    
+   - **Property Binding**: Pour afficher les données dynamiques dans le DOM.        
+   - **Event Binding**: Pour gérer les interactions utilisateur et propager les événements.
 
 
 ---
