@@ -72,20 +72,27 @@ button:active {
 }
 
 @media (max-width: 768px) {
-  .edit-user-container {
-    padding: 20px;
+  .add-user-container {
+    max-width: 90%; 
+    padding: 15px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   }
 
-  .edit-user-title {
-    font-size: 1.5rem;
+  .add-user-title {
+    font-size: 1.5rem; 
   }
 
   .form-input {
-    font-size: 0.9rem;
+    font-size: 13px; 
   }
 
   button {
-    font-size: 0.9rem;
+    font-size: 0.9rem; 
     padding: 10px 15px;
+  }
+
+  .form-actions {
+    flex-direction: column; 
+    gap: 10px;
   }
 }
