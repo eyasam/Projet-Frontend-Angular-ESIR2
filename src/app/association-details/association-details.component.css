@@ -119,3 +119,10 @@ button:active {
   color: #333;
   text-align: left;
 }
+
+@media (max-width: 768px) {
+  .association-detail-container {
+    width: 95%; 
+    padding: 15px;
+  }
+}

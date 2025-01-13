@@ -102,3 +102,10 @@
   td button {
     margin: 0 5px;
   }
+
+  @media (max-width: 768px) {
+    button {
+      font-size: 0.9rem;
+      padding: 6px 12px;
+    }
+  }

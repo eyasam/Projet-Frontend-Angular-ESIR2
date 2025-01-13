@@ -126,3 +126,23 @@ button.btn:disabled {
   background-color: #f2dede;
   color: #a94442;
 }
+
+@media (max-width: 768px) {
+  .profile-container {
+    max-width: 90%;
+    padding: 15px;
+  }
+
+  .profile-container h2 {
+    font-size: 1.5rem;
+  }
+
+  .form-control {
+    font-size: 0.875rem;
+  }
+
+  button.btn {
+    font-size: 14px;
+    padding: 8px 15px;
+  }
+}

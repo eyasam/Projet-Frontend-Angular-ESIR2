@@ -98,3 +98,34 @@
 .dialog-actions button:hover {
   background-color: #45a049;
 }
+
+@media (max-width: 768px) {
+  .minute-details-dialog {
+    padding: 15px;
+    max-width: 90%;
+  }
+
+  .minute-details-title {
+    font-size: 1.5rem;
+  }
+
+  .detail-row {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
+  .detail-label {
+    flex: 100%;
+    margin-bottom: 5px;
+  }
+
+  .detail-value {
+    flex: 100%;
+    text-align: left;
+  }
+
+  .dialog-actions button {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+}

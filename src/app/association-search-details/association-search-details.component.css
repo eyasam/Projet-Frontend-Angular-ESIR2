@@ -153,3 +153,18 @@ button:active {
     margin: 0 5px;
   }
   
+  @media (max-width: 768px) {
+    .association-detail-title {
+        font-size: 1.5rem;
+    }
+
+    .detail-row {
+        padding: 8px 0;
+    }
+
+    button {
+        font-size: 16px;
+        padding: 12px;
+        max-width: 200px;
+    }
+}
