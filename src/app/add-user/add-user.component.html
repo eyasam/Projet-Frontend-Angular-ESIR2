@@ -64,10 +64,10 @@
           placeholder="Entrez l'âge"
           class="form-input"
           [ngClass]="{'invalid': userForm.controls['age'].invalid && userForm.controls['age'].touched}"
-        />
-        <div *ngIf="userForm.controls['age'].invalid && userForm.controls['age'].touched" class="error-message">
-          L'âge est requis et doit être supérieur ou égal à 18.
-        </div>
+          />
+          <div *ngIf="userForm.controls['age'].invalid && userForm.controls['age'].touched" class="error-message">
+            L'age est requis.
+          </div>
       </div>
   
       <div class="form-field">

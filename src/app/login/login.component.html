@@ -1,34 +1,25 @@
 <div class="login-container">
   <h2>Connexion</h2>
   <form [formGroup]="loginForm" (ngSubmit)="login()">
-    <!-- Champ Nom d'utilisateur -->
+
     <div class="form-field">
       <label for="username">Nom d'utilisateur</label>
-      <input
-        id="username"
-        formControlName="username"
-        type="text"
-        placeholder="Entrez votre nom d'utilisateur"
+      <input id="username" formControlName="username" type="text" placeholder="Entrez votre nom d'utilisateur"
         class="form-input"
-        [ngClass]="{ invalid: loginForm.controls['username'].invalid && loginForm.controls['username'].touched }"
-      />
-      <div *ngIf="loginForm.controls['username'].invalid && loginForm.controls['username'].touched" class="error-message">
+        [ngClass]="{ invalid: loginForm.controls['username'].invalid && loginForm.controls['username'].touched }" />
+      <div *ngIf="loginForm.controls['username'].invalid && loginForm.controls['username'].touched"
+        class="error-message">
         Le nom d'utilisateur est requis.
       </div>
     </div>
 
-    <!-- Champ Mot de passe -->
     <div class="form-field">
       <label for="password">Mot de passe</label>
-      <input
-        id="password"
-        formControlName="password"
-        type="password"
-        placeholder="Entrez votre mot de passe"
+      <input id="password" formControlName="password" type="password" placeholder="Entrez votre mot de passe"
         class="form-input"
-        [ngClass]="{ invalid: loginForm.controls['password'].invalid && loginForm.controls['password'].touched }"
-      />
-      <div *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched" class="error-message">
+        [ngClass]="{ invalid: loginForm.controls['password'].invalid && loginForm.controls['password'].touched }" />
+      <div *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched"
+        class="error-message">
         Le mot de passe est requis.
       </div>
     </div>
