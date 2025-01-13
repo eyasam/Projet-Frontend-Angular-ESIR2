@@ -118,7 +118,8 @@ L'application suit une architecture modulaire organisée autour de modules princ
 
 ---
 
-## Auteur
-- El Anouar Ayat Allah
-- Eya Sammari
+## Auteurs
+- [**Ayat Allah ELANOUAR**](https://www.linkedin.com/in/ayat-allah-el-anouar-12964a238/)
+- [**Eya SAMMARI**](https://www.linkedin.com/in/eya-sam/)
+
 
