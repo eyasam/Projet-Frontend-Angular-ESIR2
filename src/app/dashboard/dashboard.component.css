@@ -60,23 +60,6 @@
     justify-content: center;
     gap: 15px;
   }
-  
-  @media (max-width: 768px) {
-    h2 {
-      font-size: 1.5rem;
-    }
-  
-    .options {
-      gap: 15px;
-    }
-  
-    button {
-      font-size: 16px;
-      padding: 12px;
-      max-width: 200px;
-    }
-  }
-  
 
 .search-container {
   margin: 20px 0;

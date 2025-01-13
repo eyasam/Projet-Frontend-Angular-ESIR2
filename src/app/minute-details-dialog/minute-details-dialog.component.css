@@ -5,8 +5,8 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   margin: 0 auto;
   text-align: left;
-  width: 600px; /* Ajout d'une largeur fixe */
-  max-width: 90%; /* Pour les petits écrans */
+  width: 600px;
+  max-width: 90%;
 }
 
 
@@ -20,29 +20,29 @@
 
 .detail-row {
   display: flex;
-  justify-content: flex-start; 
-  align-items: center; 
+  justify-content: flex-start;
+  align-items: center;
   padding: 10px 0;
   border-bottom: 1px solid #ddd;
-  flex-wrap: nowrap; 
+  flex-wrap: nowrap;
 }
 
 .detail-label {
   font-weight: 600;
   color: #4CAF50;
   margin-right: 10px;
-  white-space: nowrap; 
+  white-space: nowrap;
 }
 
 .detail-value {
   font-weight: 400;
   color: #333;
-  flex-grow: 1; 
+  flex-grow: 1;
   text-align: left;
   overflow-wrap: break-word;
-  word-wrap: break-word; 
-  overflow-wrap: break-word; 
-  word-break: break-word; 
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
   white-space: pre-wrap;
 }
 
@@ -97,35 +97,4 @@
 
 .dialog-actions button:hover {
   background-color: #45a049;
-}
-
-@media (max-width: 768px) {
-  .minute-details-dialog {
-    padding: 15px;
-    max-width: 90%;
-  }
-
-  .minute-details-title {
-    font-size: 1.5rem;
-  }
-
-  .detail-row {
-    flex-wrap: wrap;
-    justify-content: flex-start;
-  }
-
-  .detail-label {
-    flex: 100%;
-    margin-bottom: 5px;
-  }
-
-  .detail-value {
-    flex: 100%;
-    text-align: left;
-  }
-
-  .dialog-actions button {
-    font-size: 14px;
-    padding: 8px 16px;
-  }
 }

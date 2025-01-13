@@ -1,15 +1,15 @@
 .add-minute-dialog-container {
-    max-width: 800px;  /* Réduit la taille maximale pour correspondre à la largeur du dialogue */
-    width: 100%;  /* Utilise toute la largeur disponible */
+    max-width: 800px; 
+    width: 100%;
     padding: 30px;
     border: 1px solid #ccc;
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     background-color: #f4f7f6;
-    box-sizing: border-box;  /* Ajoute la prise en compte de la bordure dans la taille totale */
+    box-sizing: border-box; 
     display: flex;
     flex-direction: column;
-    gap: 20px;  /* Ajoute un écart entre les éléments du formulaire */
+    gap: 20px; 
   }
   
   .add-minute-dialog-title {
@@ -96,7 +96,7 @@
     transition: all 0.3s ease-in-out;
     text-transform: uppercase;
     font-weight: 500;
-    flex: 1; /* Remplit toute la largeur disponible du bouton */
+    flex: 1; 
   }
   
   button:hover {
@@ -116,22 +116,4 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
   
-  @media (max-width: 768px) {
-    .add-minute-dialog-container {
-      padding: 20px;
-    }
-  
-    .add-minute-dialog-title {
-      font-size: 1.5rem;
-    }
-  
-    .form-input {
-      font-size: 0.9rem;
-    }
-  
-    button {
-      font-size: 0.9rem;
-      padding: 10px 15px;
-    }
-  }
   

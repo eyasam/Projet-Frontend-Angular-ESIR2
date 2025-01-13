@@ -3,8 +3,6 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
-
-
 @Component({
   selector: 'app-add-association',
   standalone: false,
@@ -37,7 +35,6 @@ export class AddAssociationComponent implements OnInit {
     });
   }
   
-   // Fonction pour mettre à jour les utilisateurs sélectionnés
    onUserCheckboxChange(userId: number, event: any) {
     if (event.checked) {
       this.selectedUsers.push(userId);  // Ajouter l'ID de l'utilisateur s'il est coché
@@ -57,13 +54,12 @@ export class AddAssociationComponent implements OnInit {
     }
 
     const associationData = {
-      name: this.associationForm.get('associationName')?.value,  // Récupérer le nom de l'association
+      name: this.associationForm.get('associationName')?.value,  
       userIds: this.selectedUsers,  // Liste des utilisateurs sélectionnés
     };
 
     console.log('Association form submitted with data:', associationData);
 
-    // Envoyer les données à l'API via POST
     this.http.post('http://localhost:3000/associations', associationData).subscribe({
       next: (response) => {
         console.log('Association ajoutée avec succès', response);
